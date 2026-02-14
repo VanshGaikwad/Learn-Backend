@@ -1,0 +1,15 @@
+REST API (representational state transfer )
+->
+    HTTP(Hytper text transfer protocol) Methods
+        |
+        |
+GET -> want to fetch data from server 
+POST -> to send data on server
+PATCH ->to update data which is  already present on server 
+DELETE -> to delete data which is  already present on server 
+
+
+
+
+
+npx nodemon server.js   -> server restart after changes in js file
