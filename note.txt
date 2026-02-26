@@ -13,3 +13,24 @@ DELETE -> to delete data which is  already present on server
 
 
 npx nodemon server.js   -> server restart after changes in js file
+
+
+Now I am using MONGO DB for database 
+first i setup mongo db cluster and create a cluster and setup network access and database user
+
+
+On Database we perform basically 4 major operation
+CRUD
+
+C -> Create
+R -> Read
+U -> Update
+D -> Delete
+
+
+now we are creating database in MONGO DB
+
+so for that we have to install mongoose package 
+npm i mongoose
+
+
