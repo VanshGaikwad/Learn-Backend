@@ -1,0 +1,35 @@
+One Auth system have
+
+1] Validation
+
+2] Verification
+
+3] Authentication
+
+4] Authorization
+
+Explanation:
+
+1] Validation: data format check
+  Assume there is form which have 
+    mobile => 1234567890
+    email => 12345 [example@test.com]   <- format is not valid
+    fullName => john doe
+    password => Test@123
+
+2] Verification : verification of  data , whether the entered data is correct or not
+     mobile => 1234567890
+    email => ankur@dev.com   <- for verification we can use OTP verification
+    fullName => john doe
+    password => Test@123
+
+3] Authentication : identifying user whose reqest is coming
+
+4] Authorization : It is process of granting or denying specific access rights and privilages to a resource based on an authenticated identity.
+
+
+
+Authentication types:  1} Session based
+                       2} Token based
+
+
