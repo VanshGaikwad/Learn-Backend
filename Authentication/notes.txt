@@ -33,3 +33,168 @@ Authentication types:  1} Session based
                        2} Token based
 
 
+
+
+Practice phase  start:
+
+
+Create Backend folder 
+then,
+npm init -y
+
+npm i express mongoose 
+
+npm i dotenv
+
+
+then src folder create app.js
+
+code:
+
+    const express = require('express')
+
+    const app = express();
+
+    module.exports = app;
+
+then server.js in root folder
+code: 
+
+    require('dotenv').config();
+    const app = require('./src/app')
+    const connectDb = require('./src/db/db')
+
+    connectDb();
+    app.listen(3000,()=>{
+        console.log("Server is running on PORT 3000");
+    })
+
+then src/db/db.js
+
+code:
+
+    const mongoose = require('mongoose');
+
+
+    async function connectDB() {
+        try {
+            await mongoose.connect(process.env.MONGO_URI)
+            console.log("Connected to DB");
+            
+        } catch (error) {
+            console.log("Database connection error",error);
+            
+        }
+        
+    }
+
+    module.exports= connectDB;
+
+
+Now for token creation we have to install package
+
+
+first create db module
+
+src/models/user.model.js
+code:
+
+    const mongoose = require('mongoose')
+
+    const userSchema = new mongoose.Schema({
+        username: String,
+        email: String,
+        password: String
+    })
+
+    const userModel = mongoose.model("user",userSchema);
+
+    module.exports = userModel;
+
+
+Now for api creation create routes folder in src folder
+
+in that create auth.routes.js file
+
+
+in app.js add this line   :
+   app.use(express.json());
+
+
+now in auth.routes.js file
+
+    const express = require('express');
+
+    const router = express.Router();
+
+
+    module.exports = router;
+
+
+now for logic creation make one folder controllers in  that create auth.controller.js file
+
+    const userModel = require('../models/user.model')
+
+
+    async function registerUser(req,res) {
+        const {username, email, password} = req.body;
+    }
+
+    module.exports = {registerUser}
+
+now in auth.router.js file
+
+
+    const express = require('express');
+    const authController = require('../controllers/auth.controller')
+
+    const router = express.Router();
+
+    router.post("/register",authController.registerUser)
+
+    module.exports = router;
+
+Now go to auth controller file 
+
+create user in async function
+
+    const user = await userModel.create({
+            username,email,password
+        })
+
+
+Now for creating token
+
+    npm i jsonwebtoken
+
+
+now auth.controller filelook like
+
+        const userModel = require('../models/user.model')
+
+    const jwt = require('jsonwebtoken')
+
+    async function registerUser(req,res) {
+        const {username, email, password} = req.body;
+
+        const user = await userModel.create({
+            username,email,password
+        })
+
+        const token = jwt.sign({
+            id: user._id
+        },process.env.JWT_SECRET)
+        
+        res.status(201).json({
+            message:"User registered successfully",
+            user,
+            token
+        })
+
+    }
+
+    module.exports = {registerUser}
+
+now for storing token into  cookies we have to use middleware
+
+    npm i cookie-parser
